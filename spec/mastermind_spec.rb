@@ -1,4 +1,5 @@
 require "mastermind"
+require "stringio"
 
 RSpec.describe "Mastermind" do
 
@@ -34,6 +35,27 @@ RSpec.describe "Mastermind" do
                 end
             end
             expect(is_random).to eq true
+        end
+    end
+
+    describe "#get_guess" do
+        it "reads 4 guesses from user" do
+
+            io = StringIO.new
+            io.puts "red\n"
+            io.puts "green\n"
+            io.puts "blue\n"
+            io.puts "red\n"
+            io.rewind
+
+            $stdin = io
+
+            new_game = Mastermind.new
+            guess = new_game.get_guess
+
+            $stdin = STDIN
+
+            expect(guess).to eq ["red", "green", "blue", "red"]
         end
     end
 end

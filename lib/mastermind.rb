@@ -12,4 +12,8 @@ class Mastermind
     def new_code
         (1..4).map { COLOR_OPTIONS[rand(6)] }
     end
+
+    def get_guess
+        (1..4).map { $stdin.gets.chomp }
+    end
 end
