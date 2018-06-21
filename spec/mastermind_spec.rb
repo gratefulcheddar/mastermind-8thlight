@@ -24,13 +24,11 @@ RSpec.describe "Mastermind" do
         end
 
         it "returns an array with 4 valid colors" do
-            COLOR_OPTIONS = [:red, :blue, :green, :orange, :purple, :yellow]
-            
             for color in secret_code do
-                expect(COLOR_OPTIONS.include? color).to eq true
+                expect(Mastermind::COLOR_OPTIONS.include? color).to eq true
             end
         end
-        
+
         it "returns an array with 4 random colors" do
             is_random = false
             (1...10).each do
