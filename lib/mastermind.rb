@@ -10,6 +10,6 @@ class Mastermind
     end
 
     def new_code
-        secret_code = (1..4).map { COLOR_OPTIONS[rand(6)] }
+        (1..4).map { COLOR_OPTIONS[rand(6)] }
     end
 end
