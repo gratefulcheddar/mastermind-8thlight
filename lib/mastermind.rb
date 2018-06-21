@@ -10,10 +10,6 @@ class Mastermind
     end
 
     def new_code
-        secret_code = []
-        (1..4).each do
-            secret_code << COLOR_OPTIONS[rand(6)]
-        end
-        secret_code
+        secret_code = (1..4).map { COLOR_OPTIONS[rand(6)] }
     end
 end
