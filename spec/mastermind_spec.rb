@@ -15,21 +15,17 @@ RSpec.describe "Mastermind" do
         new_game = Mastermind.new
         secret_code = new_game.new_code
 
-        it "returns an array" do
-            expect(secret_code.class).to eq Array
-        end
-
-        it "returns an array with 4 items" do
+        it "has 4 colors" do
             expect(secret_code.count).to eq 4
         end
 
-        it "returns an array with 4 valid colors" do
+        it "uses valid colors" do
             for color in secret_code do
                 expect(Mastermind::COLOR_OPTIONS.include? color).to eq true
             end
         end
 
-        it "returns an array with 4 random colors" do
+        it "is randomly generated" do
             is_random = false
             (1...10).each do
                 if Mastermind.new.new_code != Mastermind.new.new_code
@@ -40,5 +36,4 @@ RSpec.describe "Mastermind" do
             expect(is_random).to eq true
         end
     end
-
 end
