@@ -58,4 +58,11 @@ RSpec.describe "Mastermind" do
             expect(guess).to eq ["red", "green", "blue", "red"]
         end
     end
+
+    describe "#prompt_for_user_input" do
+        it "includes all color options" do
+            new_game = Mastermind.new
+            expect(new_game.prompt_for_user_input).to include("red", "blue", "green", "orange", "purple", "yellow")
+        end
+    end
 end
