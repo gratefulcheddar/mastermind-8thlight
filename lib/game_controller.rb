@@ -15,7 +15,7 @@ while turn <= game.max_turns
         guess = gets.chomp.downcase.split(' ')
         guess.map! { |color| color.to_sym }
 
-        if guess.count == 4
+        if guess.count == game.code_length
             break if game.validate_guess_colors(guess)
             puts game.invalid_color_error_message
         else
@@ -28,12 +28,12 @@ while turn <= game.max_turns
     results[:turn] = turn
     puts results
     
-    if results[:black_pins] == 4
+    if results[:black_pins] == game.code_length
         puts game.winning_message
         break
     end
 
-    if turn == 10 
+    if turn == game.max_turns 
         puts game.out_of_turns_message
     end
 
