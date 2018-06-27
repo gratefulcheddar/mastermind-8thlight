@@ -1,5 +1,4 @@
 require "mastermind"
-require "stringio"
 
 RSpec.describe "Mastermind" do
 
@@ -38,31 +37,46 @@ RSpec.describe "Mastermind" do
         end
     end
 
-    describe "#get_guess" do
-        it "reads 4 guesses from user" do
+    describe "#get_results(guess)" do
 
-            io = StringIO.new
-            io.puts "red\n"
-            io.puts "green\n"
-            io.puts "blue\n"
-            io.puts "red\n"
-            io.rewind
+        class Mastermind
+            attr_accessor :secret_code
+        end
 
-            $stdin = io
+        game.secret_code = [:red, :blue, :green, :yellow]
 
-            new_game = Mastermind.new
-            guess = new_game.get_guess
+        it "returns 4 black pins when 4 correct colors are in the correct place" do
 
-            $stdin = STDIN
+            test_guess = game.secret_code
+            results = game.get_results(test_guess)
+            expect(results[:black_pins]).to eq 4
+            expect(results[:white_pins]).to eq 0
 
-            expect(guess).to eq ["red", "green", "blue", "red"]
+        end
+
+        it "returns 3 black pins when 3 correct colors are in the correct place" do
+
+            test_guess = [:red, :blue, :green, :purple]
+            results = game.get_results(test_guess)
+            expect(results[:black_pins]).to eq 3
+            expect(results[:white_pins]).to eq 0
+        end
+
+        it "returns 0 black and white pins when there are no correct colors" do
+
+            test_guess = [:purple, :purple, :purple, :purple]
+            results = game.get_results(test_guess)
+            expect(results[:black_pins]).to eq 0
+            expect(results[:white_pins]).to eq 0
+        end
+
+        it "returns 2 black pins and 2 white pins when 2 correct colors are in the correct place and 2 correct colors are in the wrong place" do
+
+            test_guess = [:green, :green, :green, :yellow]
+            results = game.get_results(test_guess)
+            expect(results[:black_pins]).to eq 2
+            expect(results[:white_pins]).to eq 0
         end
     end
 
-    describe "#prompt_for_user_input" do
-        it "includes all color options" do
-            new_game = Mastermind.new
-            expect(new_game.prompt_for_user_input).to include("red", "blue", "green", "orange", "purple", "yellow")
-        end
-    end
 end
