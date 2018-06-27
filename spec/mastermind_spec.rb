@@ -1,16 +1,18 @@
 require "mastermind"
 
 RSpec.describe "Mastermind" do
+
+    new_game = Mastermind.new
+
     describe "#instructions" do
         it "generates the game instructions" do
-            new_game = Mastermind.new
+
             expect(new_game.instructions).not_to be_empty
             expect(new_game.instructions).to start_with("Welcome to Mastermind!\n")
         end
     end
 
     describe "#new_code" do
-        new_game = Mastermind.new
         secret_code = new_game.new_code
 
         it "has 4 colors" do

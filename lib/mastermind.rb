@@ -1,6 +1,6 @@
 class Mastermind
 
-    COLOR_OPTIONS = [:red, :blue, :green, :orange, :purple, :yellow]
+    COLOR_OPTIONS = %i(red, blue, green, orange, purple, yellow)
 
     def instructions
         "Welcome to Mastermind!\n" + 
