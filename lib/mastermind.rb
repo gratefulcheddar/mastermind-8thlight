@@ -1,6 +1,6 @@
 class Mastermind
 
-    attr_reader :max_turns, :code_length
+    attr_reader :max_turns, :code_length, :secret_code
 
     COLOR_OPTIONS = [:red, :blue, :green, :orange, :purple, :yellow]
 
@@ -25,7 +25,7 @@ class Mastermind
         "Invalid color option entered. Please guess again.\n"
     end
 
-    def wrong_number_of_items(count)
+    def wrong_number_message(count)
         "The secret code has 4 items, your guess had #{count}. Please guess again.\n"
     end
 
@@ -34,14 +34,14 @@ class Mastermind
     end
 
     def out_of_turns_message
-        "You have run out of turns! Sorry!\n"
+        "You have run out of turns! Sorry!\n" + "The correct code was #{secret_code}\n"
     end
 
     def new_code
         code_length.times.map { COLOR_OPTIONS[rand(COLOR_OPTIONS.count)] }
     end
 
-    def validate_guess_colors(guess)
+    def validate_colors(guess)
         guess.all? { |color| Mastermind::COLOR_OPTIONS.include? color }
     end
 
