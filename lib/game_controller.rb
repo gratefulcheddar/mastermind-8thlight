@@ -14,14 +14,14 @@ while turn <= game.max_turns
     loop do
         guess = gets.chomp.downcase.split(' ')
         guess.map! { |color| color.to_sym }
-    
-        if guess.count != 4
-            puts game.wrong_number_of_items(guess.count)
-        elsif game.validate_guess_colors(guess)
-            break
-        else
+
+        if guess.count == 4
+            break if game.validate_guess_colors(guess)
             puts game.invalid_color_error_message
+        else
+            puts game.wrong_number_of_items(guess.count)
         end
+    
     end
     
     results = game.get_results(guess)
