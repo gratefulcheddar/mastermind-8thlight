@@ -1,12 +1,13 @@
 class Mastermind
 
-    attr_reader :max_turns
+    attr_reader :max_turns, :code_length
 
     COLOR_OPTIONS = [:red, :blue, :green, :orange, :purple, :yellow]
 
-    def initialize
+    def initialize(code_length = 4, max_turns = 10)
+        @code_length = code_length
+        @max_turns = max_turns
         @secret_code = new_code
-        @max_turns = 10
     end
 
     def instructions
@@ -37,7 +38,7 @@ class Mastermind
     end
 
     def new_code
-        (1..4).map { COLOR_OPTIONS[rand(6)] }
+        code_length.times.map { COLOR_OPTIONS[rand(COLOR_OPTIONS.count)] }
     end
 
     def validate_guess_colors(guess)
