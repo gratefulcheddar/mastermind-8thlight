@@ -43,12 +43,12 @@ RSpec.describe "Mastermind" do
             attr_accessor :secret_code
         end
 
-        game.secret_code = [:red, :blue, :green, :yellow]
+        new_game.secret_code = [:red, :blue, :green, :yellow]
 
         it "returns 4 black pins when 4 correct colors are in the correct place" do
 
-            test_guess = game.secret_code
-            results = game.get_results(test_guess)
+            test_guess = new_game.secret_code
+            results = new_game.get_results(test_guess)
             expect(results[:black_pins]).to eq 4
             expect(results[:white_pins]).to eq 0
 
@@ -57,7 +57,7 @@ RSpec.describe "Mastermind" do
         it "returns 3 black pins when 3 correct colors are in the correct place" do
 
             test_guess = [:red, :blue, :green, :purple]
-            results = game.get_results(test_guess)
+            results = new_game.get_results(test_guess)
             expect(results[:black_pins]).to eq 3
             expect(results[:white_pins]).to eq 0
         end
@@ -65,7 +65,7 @@ RSpec.describe "Mastermind" do
         it "returns 0 black and white pins when there are no correct colors" do
 
             test_guess = [:purple, :purple, :purple, :purple]
-            results = game.get_results(test_guess)
+            results = new_game.get_results(test_guess)
             expect(results[:black_pins]).to eq 0
             expect(results[:white_pins]).to eq 0
         end
@@ -73,9 +73,21 @@ RSpec.describe "Mastermind" do
         it "returns 2 black pins and 2 white pins when 2 correct colors are in the correct place and 2 correct colors are in the wrong place" do
 
             test_guess = [:green, :green, :green, :yellow]
-            results = game.get_results(test_guess)
+            results = new_game.get_results(test_guess)
             expect(results[:black_pins]).to eq 2
             expect(results[:white_pins]).to eq 0
+        end
+    end
+
+    describe "#validate_guess_colors(guess)" do
+        it "returns true if all guess colors are valid options" do
+            test_guess = [:red, :blue, :green, :yellow]
+            expect(new_game.validate_guess_colors(test_guess)).to eq true
+        end
+
+        it "returns false if any of the guess colors are invalid options" do
+            test_guess = [:red, :blue, :oops, :yellow]
+            expect(new_game.validate_guess_colors(test_guess)).to eq false
         end
     end
 

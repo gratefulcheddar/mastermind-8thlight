@@ -1,6 +1,8 @@
 class Mastermind
 
-    COLOR_OPTIONS = %i(red, blue, green, orange, purple, yellow)
+    attr_reader :max_turns
+
+    COLOR_OPTIONS = [:red, :blue, :green, :orange, :purple, :yellow]
 
     def initialize
         @secret_code = new_code
@@ -19,11 +21,27 @@ class Mastermind
     end
 
     def invalid_color_error_message
-        "You entered an invalid color, please try again"
+        "Invalid color option entered. Please guess again.\n"
+    end
+
+    def wrong_number_of_items(count)
+        "The secret code has 4 items, your guess had #{count}. Please guess again.\n"
+    end
+
+    def winning_message
+        "You win! Congratulations!\n"
+    end
+
+    def out_of_turns_message
+        "You have run out of turns! Sorry!\n"
     end
 
     def new_code
         (1..4).map { COLOR_OPTIONS[rand(6)] }
+    end
+
+    def validate_guess_colors(guess)
+        guess.all? { |color| Mastermind::COLOR_OPTIONS.include? color }
     end
 
     def get_results(guess)
