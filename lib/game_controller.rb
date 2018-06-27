@@ -16,10 +16,10 @@ while turn <= game.max_turns
         guess.map! { |color| color.to_sym }
 
         if guess.count == game.code_length
-            break if game.validate_guess_colors(guess)
+            break if game.validate_colors(guess)
             puts game.invalid_color_error_message
         else
-            puts game.wrong_number_of_items(guess.count)
+            puts game.wrong_number_message(guess.count)
         end
     
     end
