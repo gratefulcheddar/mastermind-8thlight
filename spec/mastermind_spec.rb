@@ -1,8 +1,7 @@
 require "mastermind"
 
 RSpec.describe "Mastermind" do
-
-    new_game = Mastermind.new
+    let(:new_game) { Mastermind.new }
 
     describe "#instructions" do
         it "generates the game instructions" do
@@ -13,8 +12,8 @@ RSpec.describe "Mastermind" do
     end
 
     describe "#new_code" do
-        secret_code = new_game.new_code
-
+        let(:secret_code) { new_game.new_code }
+        
         it "has 4 colors" do
             expect(secret_code.count).to eq 4
         end
@@ -43,7 +42,9 @@ RSpec.describe "Mastermind" do
             attr_accessor :secret_code
         end
 
-        new_game.secret_code = [:red, :blue, :green, :yellow]
+        before do
+            new_game.secret_code = [:red, :blue, :green, :yellow]
+        end
 
         it "returns 4 black pins when 4 correct colors are in the correct place" do
 
@@ -88,6 +89,27 @@ RSpec.describe "Mastermind" do
         it "returns false if any of the guess colors are invalid options" do
             test_guess = [:red, :blue, :oops, :yellow]
             expect(new_game.validate_colors(test_guess)).to eq false
+        end
+    end
+
+    describe "#update_results(results)" do
+        it "adds results to array" do
+            test_guess = [:red,:red,:red,:red]
+            results = new_game.get_results(test_guess)
+            new_game.update_results(results)
+            expect(new_game.history).to eq([results])
+        end
+
+        it "appends to existing history" do
+            test_guess_a = [:red,:red,:red,:red]
+            result_a = new_game.get_results(test_guess_a)
+            new_game.update_results(result_a)
+
+            test_guess_b = [:blue, :blue, :blue, :blue]
+            result_b = new_game.get_results(test_guess_b)
+            new_game.update_results(result_b)
+
+            expect(new_game.history).to eq([result_a, result_b])
         end
     end
 

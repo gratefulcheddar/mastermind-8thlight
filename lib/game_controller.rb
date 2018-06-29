@@ -26,7 +26,8 @@ while turn <= game.max_turns
     
     results = game.get_results(guess)
     results[:turn] = turn
-    puts results
+    game.update_results(results)
+    puts game.history
     
     if results[:black_pins] == game.code_length
         puts game.winning_message
