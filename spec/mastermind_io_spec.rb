@@ -18,7 +18,7 @@ end
 
 class FakeInputMock
   def gets
-    'Fake User Input'
+    "Fake User Input\n"
   end
 end
 
@@ -70,9 +70,9 @@ RSpec.describe 'MastermindIO' do
       expect(mock_printer.message).to eq 'Prompt Message: '
     end
 
-    it "gets a message from MastermindIO's getter" do
+    it "returns a formatted message from MastermindIO's getter" do
       test_input = mastermind_io.prompt('Prompt Message')
-      expect(test_input).to eq 'Fake User Input'
+      expect(test_input).to eq [:fake, :user, :input]
     end
   end
 end
