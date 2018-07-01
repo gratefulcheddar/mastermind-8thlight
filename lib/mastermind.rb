@@ -18,7 +18,7 @@ class Mastermind
     end
 
     def color_input_message
-        "Guess 4 colors separated by spaces and press Enter.\n Your choices include red, blue, green, orange, purple, yellow and each color can be repeated any number of times.\n"
+        "Guess 4 colors (red, blue, green, orange, yellow, or purple) separated by spaces and press Enter"
     end
 
     def invalid_color_error_message
@@ -45,21 +45,25 @@ class Mastermind
         guess.all? { |color| Mastermind::COLOR_OPTIONS.include? color }
     end
 
-    def get_results(guess)
+    def get_results(original_guess)
+
         code = @secret_code.clone
-        results = { guess: guess, black_pins: 0, white_pins: 0 }
+        guess = original_guess.clone
+
+        results = { guess: original_guess, black_pins: 0, white_pins: 0 }
 
         code.each_index do |index|
             if guess[index] == code[index]
                 results[:black_pins] += 1
-                code[index] = :not_available
+                code[index] = :guessed
+                guess[index] = :used
             end
         end
 
         guess.each do |color|
             if code.include? color 
                 results[:white_pins] += 1
-                code[code.index(color)] = :not_available
+                code[code.index(color)] = :guessed
             end
         end
 

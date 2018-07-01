@@ -1,18 +1,19 @@
 require_relative "../lib/mastermind"
+require_relative '../lib/mastermind_io'
 
 game = Mastermind.new
+io = MastermindIO.new
 
-puts game.instructions
+io.output game.instructions
 turn = 1
 
 while turn <= game.max_turns
-
-    puts game.color_input_message
     
     guess = []
     
     loop do
-        guess = gets.chomp.downcase.split(' ')
+        guess = io.prompt(game.color_input_message)
+        guess = guess.chomp.downcase.split(' ')
         guess.map! { |color| color.to_sym }
 
         if guess.count == game.code_length
