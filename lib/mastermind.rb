@@ -46,21 +46,24 @@ class Mastermind
     guess.all? { |color| Mastermind::COLOR_OPTIONS.include? color }
   end
 
-  def get_results(guess)
+  def get_results(original_guess)
     code = @secret_code.clone
+    guess = original_guess.clone
+
     results = { guess: guess, black_pins: 0, white_pins: 0 }
 
     code.each_index do |index|
       if guess[index] == code[index]
         results[:black_pins] += 1
-        code[index] = :not_available
+        code[index] = :guessed
+        guess[index] = :used
       end
     end
 
     guess.each do |color|
       if code.include? color 
         results[:white_pins] += 1
-        code[code.index(color)] = :not_available
+        code[code.index(color)] = :guessed
       end
     end
 
