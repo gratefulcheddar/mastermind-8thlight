@@ -35,7 +35,7 @@ class MastermindIO
 
   def prompt(message)
     @printer.print("#{message}: ")
-    @getter.gets
+    @getter.gets.chomp.downcase.split(' ').map! &:to_sym
   end
 end
 
