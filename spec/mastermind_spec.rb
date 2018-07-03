@@ -75,25 +75,4 @@ RSpec.describe 'Mastermind' do
     end
   end
 
-  describe '#update_history(result)' do
-    it 'adds turn result to the game history' do
-      test_guess = %i[red red red red]
-      result = new_game.get_results(test_guess)
-      new_game.update_history(result)
-      expect(new_game.history).to eq [result]
-    end
-
-    it 'appends to existing array in the correct turn order' do
-      test_guess_a = %i[red red red red]
-      result_a = new_game.get_results(test_guess_a)
-      new_game.update_history(result_a)
-
-      test_guess_b = %i[blue blue blue blue]
-      result_b = new_game.get_results(test_guess_b)
-      new_game.update_history(result_b)
-
-      expect(new_game.history).to eq [result_a, result_b]
-    end
-  end
-
 end
