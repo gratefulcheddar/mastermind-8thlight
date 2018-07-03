@@ -7,6 +7,7 @@ class GameController
     @turn = 1
     @guess = []
     @messages = MastermindDialog.new
+    @board = @game.board
   end
 
   def play_game
@@ -29,8 +30,8 @@ class GameController
     
       result = @game.get_results(@guess)
       result[:turn] = @turn
-      @game.update_history(result)
-      puts @game.history
+      @board.add(result)
+      puts @board.history
     
       if result[:black_pins] == @game.code_length
         puts @messages.winning_message

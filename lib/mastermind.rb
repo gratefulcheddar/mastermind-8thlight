@@ -1,6 +1,8 @@
+require_relative '../lib/board'
+
 class Mastermind
 
-  attr_reader :max_turns, :code_length, :secret_code, :history
+  attr_reader :max_turns, :code_length, :secret_code, :history, :board
 
   COLOR_OPTIONS = %i[red blue green orange purple yellow].freeze
 
@@ -8,7 +10,7 @@ class Mastermind
     @code_length = code_length
     @max_turns = max_turns
     @secret_code = new_code
-    @history = []
+    @board = Board.new
   end
 
   def new_code
@@ -43,7 +45,4 @@ class Mastermind
     results
   end
 
-  def update_history(result)
-    @history << result
-  end
 end
