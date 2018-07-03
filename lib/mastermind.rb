@@ -50,7 +50,7 @@ class Mastermind
     code = @secret_code.clone
     guess = original_guess.clone
 
-    results = { guess: guess, black_pins: 0, white_pins: 0 }
+    results = { guess: original_guess, black_pins: 0, white_pins: 0 }
 
     code.each_index do |index|
       if guess[index] == code[index]
