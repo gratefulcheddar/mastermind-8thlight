@@ -1,17 +1,19 @@
 require_relative "../lib/mastermind"
+require_relative '../lib/mastermind_dialog'
 
 class GameController
   def initialize(args = {})
     @game = Mastermind.new
     @turn = 1
     @guess = []
+    @messages = MastermindDialog.new
   end
 
   def play_game
-    puts @game.instructions
+    puts @messages.instructions
 
     while @turn <= @game.max_turns
-      puts @game.color_input_message
+      print @messages.color_input_message
 
       loop do
         @guess = gets.chomp.downcase.split(' ')
@@ -19,9 +21,9 @@ class GameController
     
         if @guess.count == @game.code_length
           break if @game.validate_colors(@guess)
-          puts @game.invalid_color_error_message
+          puts @messages.invalid_color_error_message
         else
-          puts @game.wrong_number_message(@guess.count)
+          puts @messages.wrong_number_message(@guess.count)
         end
       end
     
@@ -31,11 +33,11 @@ class GameController
       puts @game.history
     
       if result[:black_pins] == @game.code_length
-        puts @game.winning_message
+        puts @messages.winning_message
         break
       end
     
-      puts @game.out_of_turns_message if @turn == @game.max_turns
+      puts @messages.out_of_turns_message if @turn == @game.max_turns
     
       @turn += 1
     end
