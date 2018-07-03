@@ -19,7 +19,7 @@ class Mastermind
   end
 
   def color_input_message
-    "Guess 4 colors separated by spaces and press Enter.\n Your choices include red, blue, green, orange, purple, yellow and each color can be repeated any number of times.\n"
+    "Guess 4 colors (red, blue, green, orange, yellow, or purple) separated by spaces and press Enter: "
   end
 
   def invalid_color_error_message
