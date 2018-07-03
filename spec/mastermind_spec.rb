@@ -25,17 +25,6 @@ RSpec.describe 'Mastermind' do
         expect(Mastermind::COLOR_OPTIONS.include? color).to eq true
       end
     end
-
-    it 'is randomly generated' do
-      is_random = false
-      (1...10).each do
-        if Mastermind.new.new_code != Mastermind.new.new_code
-          is_random = true
-          break
-        end
-      end
-      expect(is_random).to eq true
-    end
   end
 
   describe '#get_results(guess)' do
