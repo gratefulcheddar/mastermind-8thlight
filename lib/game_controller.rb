@@ -15,7 +15,7 @@ class GameController
   def play_game
     @io.output @messages.instructions
 
-    while @turn <= @game.max_turns
+    @game.max_turns.times do
 
       @guess = @io.get_guess(@game.code_length)
     
@@ -29,10 +29,12 @@ class GameController
         break
       end
     
-      @io.output @messages.out_of_turns_message(@game.secret_code) if @turn == @game.max_turns
-    
+      if @turn == @game.max_turns
+        @io.output @messages.out_of_turns_message(@game.secret_code)
+        break
+      end
+
       @turn += 1
     end
   end
-
 end
