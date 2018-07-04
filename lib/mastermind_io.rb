@@ -37,7 +37,21 @@ class MastermindIO
 
   def prompt(message)
     @printer.print("#{message}: ")
-    @getter.gets.chomp.downcase.split(' ').map! &:to_sym
+    @getter.gets
+  end
+
+  def get_guess(game)
+    loop do
+      guess = prompt(@messages.color_input_message)
+      guess = guess.chomp.downcase.split(' ').map! &:to_sym
+
+      if guess.count == game.code_length
+        return guess if game.validate_colors(guess)
+        output @messages.invalid_color_error_message
+      else
+        output @messages.wrong_number_message(guess.count)
+      end
+    end
   end
 end
 
