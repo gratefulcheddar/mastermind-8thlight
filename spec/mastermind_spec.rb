@@ -19,7 +19,7 @@ RSpec.describe 'Mastermind' do
     end
   end
 
-  describe '#get_results(guess)' do
+  describe '#get_result(guess)' do
 
     class MockMastermind < Mastermind
       attr_accessor :secret_code
