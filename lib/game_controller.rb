@@ -17,7 +17,7 @@ class GameController
 
     while @turn <= @game.max_turns
 
-      @guess = @io.get_guess(@game)
+      @guess = @io.get_guess(@game.code_length)
     
       result = @game.get_result(@guess)
       result[:turn] = @turn

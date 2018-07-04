@@ -18,7 +18,7 @@ end
 
 class FakeInputMock
   def gets
-    "Fake User Input\n"
+    "red blue green yellow\n"
   end
 end
 
@@ -70,9 +70,18 @@ RSpec.describe 'MastermindIO' do
       expect(mock_printer.message).to eq 'Prompt Message: '
     end
 
-    it "returns a formatted message from MastermindIO's getter" do
+    it "returns a message from MastermindIO's getter" do
       test_input = mastermind_io.prompt('Prompt Message')
-      expect(test_input).to eq [:fake, :user, :input]
+      expect(test_input).to eq "red blue green yellow"
+    end
+  end
+
+  describe '#get_guess(correct_length)' do
+    context 'when guess is correct length and valid color options' do
+      it "returns a formatted guess from MastermindIO's getter" do
+        test_guess = mastermind_io.get_guess(4)
+        expect(test_guess).to eq [:red, :blue, :green, :yellow]
+      end
     end
   end
 end

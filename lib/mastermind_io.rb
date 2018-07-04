@@ -1,3 +1,6 @@
+require_relative '../lib/mastermind_dialog'
+require_relative '../lib/mastermind'
+
 class Printer
   def puts(message)
     $stdout.puts message
@@ -37,16 +40,16 @@ class MastermindIO
 
   def prompt(message)
     @printer.print("#{message}: ")
-    @getter.gets
+    @getter.gets.chomp
   end
 
-  def get_guess(game)
+  def get_guess(correct_length)
     loop do
       guess = prompt(@messages.color_input_message)
-      guess = guess.chomp.downcase.split(' ').map! &:to_sym
+      guess = guess.downcase.split(' ').map! &:to_sym
 
-      if guess.count == game.code_length
-        return guess if game.validate_colors(guess)
+      if guess.count == correct_length
+        return guess if Mastermind.validate_colors(guess)
         output @messages.invalid_color_error_message
       else
         output @messages.wrong_number_message(guess.count)

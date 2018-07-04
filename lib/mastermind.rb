@@ -19,7 +19,7 @@ class Mastermind
     Array.new(code_length) { COLOR_OPTIONS.sample }
   end
 
-  def validate_colors(guess)
+  def self.validate_colors(guess)
     guess.all? { |color| Mastermind::COLOR_OPTIONS.include? color }
   end
 
