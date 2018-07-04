@@ -27,6 +27,8 @@ class MastermindIO
     else
       raise NoMethodError, "Getter: #{getter} must respond to .gets"
     end
+
+    @messages = MastermindDialog.new
   end
 
   def output(message)

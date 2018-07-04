@@ -1,8 +1,9 @@
 require_relative '../lib/board'
+require_relative '../lib/mastermind_dialog'
 
 class Mastermind
 
-  attr_reader :max_turns, :code_length, :secret_code, :history, :board
+  attr_reader :max_turns, :code_length, :secret_code, :board, :messages
 
   COLOR_OPTIONS = %i[red blue green orange purple yellow].freeze
 
@@ -10,6 +11,7 @@ class Mastermind
     @code_length = code_length
     @max_turns = max_turns
     @secret_code = new_code
+    @messages = MastermindDialog.new
     @board = Board.new
   end
 
