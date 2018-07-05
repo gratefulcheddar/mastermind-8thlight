@@ -68,12 +68,12 @@ RSpec.describe 'Mastermind' do
   describe '#validate_colors(guess)' do
     it 'returns true if all guess colors are valid options' do
       test_guess = %i[red blue green yellow]
-      expect(new_game.validate_colors(test_guess)).to eq true
+      expect(Mastermind.validate_colors(test_guess)).to eq true
     end
 
     it 'returns false if any of the guess colors are invalid options' do
       test_guess = %i[red blue oops yellow]
-      expect(new_game.validate_colors(test_guess)).to eq false
+      expect(Mastermind.validate_colors(test_guess)).to eq false
     end
   end
 
