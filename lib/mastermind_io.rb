@@ -48,6 +48,10 @@ class MastermindIO
       guess = prompt(@messages.color_input_message)
       guess = guess.downcase.split(' ').map! &:to_sym
 
+      if guess.count == 1 
+        return guess if Mastermind::GAME_OPTIONS.include? guess[0]
+      end
+
       if guess.count == correct_length
         return guess if Mastermind.validate_colors(guess)
         output @messages.invalid_color_error_message
