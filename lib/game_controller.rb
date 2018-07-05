@@ -21,17 +21,17 @@ class GameController
       @guess = @io.get_guess(@game.code_length)
 
       break if @guess.count == 1
-    
+
       result = @game.get_result(@guess)
       result[:turn] = @turn
-      @board.add(result)
-      @io.output @board.history
-    
+      @game.add_to_board(result)
+      @io.output @game.board
+
       if result[:black_pins] == @game.code_length
         @io.output @messages.winning_message
         break
       end
-    
+
       if @turn == @game.max_turns
         @io.output @messages.out_of_turns_message(@game.secret_code)
         break
