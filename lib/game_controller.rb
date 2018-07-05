@@ -44,6 +44,3 @@ class GameController
     end
   end
 end
-
-game_controller = GameController.new
-game_controller.play_game
