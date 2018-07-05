@@ -18,6 +18,8 @@ class GameController
     @game.max_turns.times do
 
       @guess = @io.get_guess(@game.code_length)
+
+      break if @guess.count == 1
     
       result = @game.get_result(@guess)
       result[:turn] = @turn
