@@ -2,7 +2,7 @@ require_relative "../lib/mastermind"
 require_relative '../lib/mastermind_dialog'
 
 class GameController
-  def initialize(args = {})
+  def initialize()
     @game = Mastermind.new
     @turn = 1
     @guess = []
