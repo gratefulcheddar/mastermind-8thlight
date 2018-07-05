@@ -1,15 +1,16 @@
 require_relative "../lib/mastermind"
-require_relative '../lib/mastermind_dialog'
 require_relative '../lib/mastermind_io'
 
 class GameController
-  def initialize()
-    @game = Mastermind.new
+
+  attr_reader :guess
+
+  def initialize(game: Mastermind.new, messages: MastermindDialog.new, io: MastermindIO.new)
+    @game = game
     @turn = 1
     @guess = []
-    @messages = @game.messages
-    @board = @game.board
-    @io = MastermindIO.new
+    @messages = messages
+    @io = io
   end
 
   def play_game
