@@ -51,4 +51,8 @@ class Mastermind
       end
     end
   end
+
+  def add_to_board(result)
+    @board.add(result)
+  end
 end
