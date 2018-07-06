@@ -72,7 +72,7 @@ RSpec.describe 'MastermindIO' do
 
     it "returns a message from MastermindIO's getter" do
       test_input = mastermind_io.prompt('Prompt Message')
-      expect(test_input).to eq "red blue green yellow"
+      expect(test_input).to eq 'red blue green yellow'
     end
   end
 
