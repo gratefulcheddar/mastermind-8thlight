@@ -25,9 +25,11 @@ end
 class NoPutsMethod
   def print; end
 end
+
 class NoPrintMethod
   def puts; end
 end
+
 class NoGetsMethod
 end
 
