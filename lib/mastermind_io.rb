@@ -46,7 +46,7 @@ class MastermindIO
   def get_guess(correct_length)
     loop do
       guess = prompt(@messages.color_input_message)
-      guess = guess.downcase.split(' ').map! &:to_sym
+      guess = guess.downcase.split(' ').map!(&:to_sym)
 
       if guess.count == 1 
         return guess if Mastermind::GAME_OPTIONS.include? guess[0]
