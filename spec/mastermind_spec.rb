@@ -19,22 +19,14 @@ RSpec.describe 'Mastermind' do
     end
   end
 
-  describe '#get_result(guess)' do
+  describe '#get_result(secret_code, original_guess)' do
 
-    class MockMastermind < Mastermind
-      attr_accessor :secret_code
-    end
-
-    let(:mock_game) { MockMastermind.new }
-
-    before(:each) do
-      mock_game.secret_code = %i[red blue green yellow]
-    end
+    let(:test_code) { %i[red blue green yellow] }
 
     it 'returns 4 black pins when 4 correct colors are in the correct place' do
 
-      test_guess = mock_game.secret_code
-      results = mock_game.get_results(test_guess)
+      test_guess = test_code
+      results = new_game.get_result(test_code, test_guess)
       expect(results[:black_pins]).to eq 4
       expect(results[:white_pins]).to eq 0
 
@@ -43,7 +35,7 @@ RSpec.describe 'Mastermind' do
     it 'returns 3 black pins when 3 correct colors are in the correct place' do
 
       test_guess = %i[red blue green purple]
-      results = mock_game.get_results(test_guess)
+      results = new_game.get_result(test_code, test_guess)
       expect(results[:black_pins]).to eq 3
       expect(results[:white_pins]).to eq 0
     end
@@ -51,7 +43,7 @@ RSpec.describe 'Mastermind' do
     it 'returns 0 black and white pins when there are no correct colors' do
 
       test_guess = %i[purple purple purple purple]
-      results = mock_game.get_results(test_guess)
+      results = new_game.get_result(test_code, test_guess)
       expect(results[:black_pins]).to eq 0
       expect(results[:white_pins]).to eq 0
     end
@@ -59,7 +51,7 @@ RSpec.describe 'Mastermind' do
     it 'returns 2 black pins and 2 white pins when 2 correct colors are in the correct place and 2 correct colors are in the wrong place' do
 
       test_guess = %i[green green green yellow]
-      results = mock_game.get_results(test_guess)
+      results = new_game.get_result(test_code, test_guess)
       expect(results[:black_pins]).to eq 2
       expect(results[:white_pins]).to eq 0
     end
