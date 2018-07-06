@@ -22,7 +22,7 @@ class GameController
 
       break if @guess.count == 1
 
-      result = @game.get_result(@guess)
+      result = @game.get_result(@game.secret_code, @guess)
       result[:turn] = @turn
       @game.add_to_board(result)
       @io.output @game.board

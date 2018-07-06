@@ -21,8 +21,8 @@ class Mastermind
     guess.all? { |color| Mastermind::COLOR_OPTIONS.include? color }
   end
 
-  def get_result(original_guess)
-    code = @secret_code.clone
+  def get_result(secret_code, original_guess)
+    code = secret_code.clone
     guess = original_guess.clone
 
     result = { guess: original_guess, black_pins: 0, white_pins: 0 }
