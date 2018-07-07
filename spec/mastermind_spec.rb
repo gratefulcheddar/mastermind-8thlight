@@ -1,11 +1,9 @@
 require 'mastermind'
 
 RSpec.describe 'Mastermind' do
-
   let(:new_game) { Mastermind.new }
 
   describe '#new_code' do
-
     let(:secret_code) { new_game.new_code }
 
     it 'has 4 colors' do
@@ -68,5 +66,4 @@ RSpec.describe 'Mastermind' do
       expect(Mastermind.validate_colors(test_guess)).to eq false
     end
   end
-
 end

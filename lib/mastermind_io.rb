@@ -38,7 +38,7 @@ class MastermindIO
       guess = prompt(@messages.color_input_message)
       guess = guess.downcase.split(' ').map!(&:to_sym)
 
-      if guess.count == 1 
+      if guess.count == 1
         return guess if Mastermind::GAME_OPTIONS.include? guess[0]
       end
 
@@ -51,4 +51,3 @@ class MastermindIO
     end
   end
 end
-

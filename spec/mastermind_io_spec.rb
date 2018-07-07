@@ -56,7 +56,7 @@ RSpec.describe 'MastermindIO' do
     context 'when guess is correct length and valid color options' do
       it "returns a formatted guess from MastermindIO's getter" do
         test_guess = mastermind_io.get_guess(4)
-        expect(test_guess).to eq [:red, :blue, :green, :yellow]
+        expect(test_guess).to eq %i[red blue green yellow]
       end
     end
   end
