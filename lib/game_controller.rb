@@ -7,7 +7,6 @@ class GameController
 
   def initialize(game: Mastermind.new, messages: MastermindDialog.new, io: MastermindIO.new)
     @game = game
-    @turn = 1
     @guess = []
     @messages = messages
     @io = io
@@ -16,14 +15,14 @@ class GameController
   def play_game
     @io.output @messages.instructions
 
-    @game.max_turns.times do
+    (1..@game.max_turns).each do |turn_number|
 
       @guess = @io.get_guess(@game.code_length)
 
-      break if @guess.count == 1
+      break if @guess == [:restart] || @guess == [:quit]
 
       result = @game.get_result(@game.secret_code, @guess)
-      result[:turn] = @turn
+      result[:turn] = turn_number
       @game.add_to_board(result)
       @io.output @game.board
 
@@ -32,12 +31,11 @@ class GameController
         break
       end
 
-      if @turn == @game.max_turns
+      if turn_number == @game.max_turns
         @io.output @messages.out_of_turns_message(@game.secret_code)
         break
       end
 
-      @turn += 1
     end
   end
 end
