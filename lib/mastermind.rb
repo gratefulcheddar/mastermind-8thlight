@@ -5,10 +5,12 @@ class Mastermind
 
   COLOR_OPTIONS = %i[red blue green orange purple yellow].freeze
   GAME_OPTIONS = %i[quit restart].freeze
+  SECRET_LENGTH = 4
+  MAX_TURNS = 10
 
-  def initialize(code_length: 4, max_turns: 10, board: Board.new)
-    @code_length = code_length
-    @max_turns = max_turns
+  def initialize(board: Board.new)
+    @code_length = SECRET_LENGTH
+    @max_turns = MAX_TURNS
     @secret_code = new_code
     @board = board
   end
