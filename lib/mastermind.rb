@@ -16,7 +16,7 @@ class Mastermind
   end
 
   def new_code
-    Array.new(code_length) { COLOR_OPTIONS.sample }
+    COLOR_OPTIONS.sample(@code_length)
   end
 
   def self.validate_colors(guess)
