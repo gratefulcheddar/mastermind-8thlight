@@ -11,8 +11,12 @@ class MastermindDialog
     "Guess 4 colors (red, blue, green, orange, yellow, or purple) separated by spaces and press Enter"
   end
 
-  def invalid_color_error_message
-    "Invalid color option entered. Please guess again.\n"
+  def invalid_color_error_message(invalid_colors)
+    if invalid_colors.count == 1
+      "#{invalid_colors} is not a valid color. Please guess again. \n"
+    else
+      "#{invalid_colors} are not valid colors. Please guess again. \n"
+    end
   end
 
   def wrong_number_message(count)
