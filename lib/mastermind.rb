@@ -9,7 +9,6 @@ class Mastermind
   MAX_TURNS = 10
 
   def initialize(board: Board.new)
-    @max_turns = MAX_TURNS
     @secret_code = new_code
     @board = board
   end
