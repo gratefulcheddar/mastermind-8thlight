@@ -1,4 +1,8 @@
 require_relative '../lib/game_controller'
 
-game_controller = GameController.new
-game_controller.play_game
+loop do
+  game_controller = GameController.new
+  game_controller.play_game
+  break if game_controller.guess == [:quit]
+  system "clear" or system "cls"
+end
