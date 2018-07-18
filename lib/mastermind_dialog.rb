@@ -20,7 +20,7 @@ class MastermindDialog
   end
 
   def wrong_number_message(count)
-    "The secret code has 4 items, your guess had #{count}. Please guess again.\n"
+    "The secret code has #{Mastermind::SECRET_LENGTH} colors, your guess had #{count}. Please guess again.\n"
   end
 
   def winning_message
