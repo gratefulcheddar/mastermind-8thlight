@@ -17,7 +17,7 @@ class GameController
 
     (1..@game.max_turns).each do |turn_number|
 
-      @guess = @io.get_guess(@game.code_length)
+      @guess = @io.get_guess(Mastermind::SECRET_LENGTH)
 
       break if @guess == [:restart] || @guess == [:quit]
 
@@ -26,7 +26,7 @@ class GameController
       @game.add_to_board(result)
       @io.output @game.board
 
-      if result[:black_pins] == @game.code_length
+      if result[:black_pins] == Mastermind::SECRET_LENGTH
         @io.output @messages.winning_message
         break
       end

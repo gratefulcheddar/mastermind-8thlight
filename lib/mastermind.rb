@@ -9,14 +9,13 @@ class Mastermind
   MAX_TURNS = 10
 
   def initialize(board: Board.new)
-    @code_length = SECRET_LENGTH
     @max_turns = MAX_TURNS
     @secret_code = new_code
     @board = board
   end
 
   def new_code
-    COLOR_OPTIONS.sample(@code_length)
+    COLOR_OPTIONS.sample(SECRET_LENGTH)
   end
 
   def self.validate_colors(guess)
