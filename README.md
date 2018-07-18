@@ -1,10 +1,10 @@
-#MasterMind
+# MasterMind
 
-##How To Install
+## How To Install
 
 Ruby Version 2.5.1
 
-Install bundler, clone repo, run the bundle install command within the project directory to install dependencies.
+Install bundler gem, clone repo, run the bundle install command within the project directory to install dependencies.
 
 ```
 gem install bundler
@@ -13,10 +13,10 @@ cd mastermind-8thlight
 bundle install
 ```
 
-##How To Run Tests
+## How To Run Tests
 
 To run all the tests, run `rspec` from the main project directory.
 
-##How To Play
+## How To Play
 
 To play the game, run `ruby lib/main.rb` from the main project directory.
