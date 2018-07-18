@@ -15,7 +15,7 @@ class GameController
   def play_game
     @io.output @messages.instructions
 
-    (1..@game.max_turns).each do |turn_number|
+    (1..Mastermind::MAX_TURNS).each do |turn_number|
 
       @guess = @io.get_guess(Mastermind::SECRET_LENGTH)
 
@@ -31,7 +31,7 @@ class GameController
         break
       end
 
-      if turn_number == @game.max_turns
+      if turn_number == Mastermind::MAX_TURNS
         @io.output @messages.out_of_turns_message(@game.secret_code)
         break
       end
