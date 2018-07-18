@@ -1,7 +1,7 @@
 require_relative '../lib/board'
 
 class Mastermind
-  attr_reader :max_turns, :code_length, :secret_code, :board, :messages
+  attr_reader :secret_code, :board
 
   COLOR_OPTIONS = %i[red blue green orange purple yellow].freeze
   GAME_OPTIONS = %i[quit restart].freeze
