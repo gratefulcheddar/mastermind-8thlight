@@ -44,7 +44,9 @@ class MastermindIO
 
       if guess.count == correct_length
         return guess if Mastermind.validate_colors(guess)
-        output @messages.invalid_color_error_message
+        invalid_colors = guess.reject { |color| Mastermind::COLOR_OPTIONS.include? color}
+        invalid_colors.map! { |color| color.to_s }
+        output @messages.invalid_color_error_message(invalid_colors)
       else
         output @messages.wrong_number_message(guess.count)
       end
