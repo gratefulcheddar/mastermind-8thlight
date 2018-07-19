@@ -5,19 +5,11 @@ loop do
   game_controller.play_game
   if game_controller.guess == [:quit]
     print "Are you sure you'd like to quit? (Enter yes or no): "
-    replay = gets.chomp.downcase.to_sym
-    while replay != :no && replay != :yes
-      print "\nEnter yes or no: "
-      replay = gets.chomp.downcase.to_sym
-    end
+    replay = MastermindIO.new.get_yes_no_answer
     break if replay == :yes
   end
   print "Would you like to play again? (Enter yes or no): "
-  replay = gets.chomp.downcase.to_sym
-  while replay != :no && replay != :yes
-    print "\nEnter yes or no: "
-    replay = gets.chomp.downcase.to_sym
-  end
+  replay = MastermindIO.new.get_yes_no_answer
   break if replay == :no
   puts "\nRestarting in 3 seconds..."
   sleep(3)
