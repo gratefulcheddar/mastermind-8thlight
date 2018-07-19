@@ -12,11 +12,7 @@ class MastermindDialog
   end
 
   def invalid_color_error_message(invalid_colors)
-    if invalid_colors.count == 1
-      "#{invalid_colors} is not a valid color. Please guess again. \n"
-    else
-      "#{invalid_colors} are not valid colors. Please guess again. \n"
-    end
+    "#{invalid_colors} #{invalid_colors.count == 1 ? 'is not a valid color' : 'are not valid colors'}. Please guess again. \n"
   end
 
   def wrong_number_message(count)
