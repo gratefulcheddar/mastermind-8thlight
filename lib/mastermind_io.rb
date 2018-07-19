@@ -52,4 +52,14 @@ class MastermindIO
       end
     end
   end
+
+  def get_yes_no_answer
+    answer = gets.chomp.downcase.to_sym
+    while answer != :no && answer != :yes
+      print "\nEnter yes or no: "
+      answer = gets.chomp.downcase.to_sym
+    end
+    answer
+  end
+  
 end
