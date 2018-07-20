@@ -11,6 +11,7 @@ class Mastermind
   def initialize(board: Board.new)
     @secret_code = new_code
     @board = board
+    @turn = 1
   end
 
   def new_code
@@ -21,19 +22,32 @@ class Mastermind
     guess.all? { |color| Mastermind::COLOR_OPTIONS.include? color }
   end
 
+  def increment_turn_number
+    @turn += 1
+  end
+
+  def winning_condition?
+    @result[:black_pins] == SECRET_LENGTH
+  end
+
+  def out_of_turns?
+    @turn > MAX_TURNS
+  end
+
   def get_result(secret_code, original_guess)
     code = secret_code.clone
     guess = original_guess.clone
 
-    result = { guess: original_guess, black_pins: 0, white_pins: 0 }
+    @result = { guess: original_guess, black_pins: 0, white_pins: 0, turn: @turn }
+    increment_turn_number
 
     black_pins = calculate_black_pins(code, guess)
     white_pins = calculate_white_pins(code, guess)
 
-    add_black_pins_to_result(black_pins, result)
-    add_white_pins_to_result(white_pins, result)
+    add_black_pins_to_result(black_pins)
+    add_white_pins_to_result(white_pins)
 
-    result
+    @result
   end
 
   def calculate_black_pins(code, guess)
@@ -48,8 +62,8 @@ class Mastermind
     black_pins
   end
 
-  def add_black_pins_to_result(black_pins, result)
-    result[:black_pins] = black_pins
+  def add_black_pins_to_result(black_pins)
+    @result[:black_pins] = black_pins
   end
 
   def calculate_white_pins(code, guess)
@@ -63,8 +77,8 @@ class Mastermind
     white_pins
   end
 
-  def add_white_pins_to_result(white_pins, result)
-    result[:white_pins] = white_pins
+  def add_white_pins_to_result(white_pins)
+    @result[:white_pins] = white_pins
   end
 
   def add_to_board(result)
