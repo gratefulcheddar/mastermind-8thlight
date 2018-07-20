@@ -1,10 +1,13 @@
 # MasterMind
 
-## How To Install
+## Requirements
 
 Ruby Version 2.5.1
+Bundler
 
-Install bundler gem, clone repo, run the bundle install command within the project directory to install dependencies.
+## How To Install
+
+Install bundler gem, clone this repo, run the `bundle install` command within the project directory to install dependencies.
 
 ```
 gem install bundler
@@ -15,8 +18,8 @@ bundle install
 
 ## How To Run Tests
 
-To run all the tests, run `rspec` from the main project directory.
+After installation, to run all the tests, run `rspec` from the main project directory.
 
 ## How To Play
 
-To play the game, run `ruby lib/main.rb` from the main project directory.
+After installation, to play the game, run `ruby lib/main.rb` from the main project directory.
