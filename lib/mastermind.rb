@@ -1,7 +1,8 @@
 require_relative '../lib/board'
 
 class Mastermind
-  attr_reader :secret_code, :board
+  attr_reader :board
+  attr_accessor :secret_code
 
   COLOR_OPTIONS = %i[red blue green orange purple yellow].freeze
   GAME_OPTIONS = %i[quit restart].freeze
@@ -31,7 +32,11 @@ class Mastermind
   end
 
   def out_of_turns?
-    @turn > MAX_TURNS
+    @turn > MAX_TURNS 
+  end
+
+  def finish_turn(guess)
+    add_to_board(get_result(@secret_code, guess))
   end
 
   def get_result(secret_code, original_guess)

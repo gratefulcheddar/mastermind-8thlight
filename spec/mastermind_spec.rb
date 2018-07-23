@@ -60,4 +60,23 @@ RSpec.describe 'Mastermind' do
       expect(Mastermind.validate_colors(test_guess)).to eq false
     end
   end
+
+  describe '#winning_condition?' do
+    class MockMastermind < Mastermind
+      attr_accessor :result
+    end
+
+    let(:mock_game) { MockMastermind.new }
+    
+    it 'returns true if the result has 4 black pins' do
+      mock_game.result = { black_pins: Mastermind::SECRET_LENGTH }
+      expect(mock_game.winning_condition?).to eq true
+    end
+
+    it 'returns false if the result has less than 4 black pins' do
+      mock_game.result = { black_pins: (Mastermind::SECRET_LENGTH - 1) }
+      expect(mock_game.winning_condition?).to eq false
+    end
+
+  end
 end

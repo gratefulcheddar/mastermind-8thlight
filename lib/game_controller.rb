@@ -13,6 +13,7 @@ class GameController
   end
 
   def play_game
+
     @io.output @messages.instructions
 
     Mastermind::MAX_TURNS.times do
@@ -21,12 +22,11 @@ class GameController
 
       break if @guess == [:restart] || @guess == [:quit]
 
-      result = @game.get_result(@game.secret_code, @guess)
-      @game.add_to_board(result)
+      @game.finish_turn(guess)
       @io.output @game.board
 
       if @game.winning_condition?
-        @io.output @messages.winning_message
+        @io.output @messages.winning_message_human
         break
       end
 
@@ -41,7 +41,11 @@ class GameController
   def play_game_2
     @io.output @messages.instructions
 
-    @game.secret_code = @io.get_guess(Mastermind::SECRET_LENGTH)
+    code = @io.get_guess(Mastermind::SECRET_LENGTH)
+
+    return if code == [:quit]
+
+    @game.secret_code = code
 
     new_combinations = Mastermind::COLOR_OPTIONS.repeated_permutation(4).to_a
 
@@ -59,7 +63,7 @@ class GameController
       pins = [result[:black_pins], result[:white_pins]]
 
       if result[:black_pins] == Mastermind::SECRET_LENGTH
-        @io.output @messages.winning_message
+        @io.output @messages.winning_message_computer
         break
       end
 
