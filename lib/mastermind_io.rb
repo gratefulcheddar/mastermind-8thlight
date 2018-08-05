@@ -1,5 +1,5 @@
 require_relative '../lib/mastermind_dialog'
-require_relative '../lib/mastermind'
+require_relative '../lib/rules'
 
 class Printer
   def puts(message)
@@ -18,10 +18,10 @@ class Getter
 end
 
 class MastermindIO
-  def initialize(printer: Printer.new, getter: Getter.new, messages: MastermindDialog.new)
+  def initialize(printer: Printer.new, getter: Getter.new, messages: MastermindDialog)
     @printer = printer
     @getter = getter
-    @messages = messages
+    @messages = messages.new
   end
 
   def output(message)
@@ -36,43 +36,108 @@ class MastermindIO
   def print(message)
     @printer.print(message)
   end
-
-  def get_guess(correct_length)
+  
+  def get_code
     loop do
-      guess = prompt(@messages.color_input_message)
-      guess = guess.downcase.split(' ').map!(&:to_sym)
+      user_input = prompt_for_code
+      formatted_guess = user_input.downcase.split(' ').map(&:to_sym)
 
-      if guess.count == 1
-        return guess if Mastermind::GAME_OPTIONS.include? guess[0]
-      end
+      return formatted_guess if validate(formatted_guess)
 
-      if guess.count == correct_length
-        return guess if Mastermind.validate_colors(guess)
-        invalid_colors = guess.reject { |color| Mastermind::COLOR_OPTIONS.include? color}
-        invalid_colors.map!(&:to_sym)
-        output @messages.invalid_color_error_message(invalid_colors)
+      if formatted_guess == [:quit]
+        abort
+      elsif formatted_guess == [:restart]
+        exec('ruby lib/main.rb')
       else
-        output @messages.wrong_number_message(guess.count)
+        input_error(formatted_guess)
       end
     end
   end
 
-  def self.get_yes_no_answer
-    answer = gets.chomp.downcase.to_sym
-    while answer != :no && answer != :yes
-      print "\nInvalid Input: Enter yes or no: "
-      answer = gets.chomp.downcase.to_sym
+  def get_game_mode
+    output @messages.game_modes
+    loop do
+      user_input = prompt_for_game_mode
+      game_mode = user_input.downcase.to_sym
+      return game_mode if Rules::GAME_MODES.include? game_mode
+      output @messages.invalid_option_error_message
     end
-    answer
   end
 
-  def self.get_game_mode
-    game_mode = gets.chomp
-    while game_mode != '1' && game_mode != '2'
-      print "\nInvalid Input: Enter 1 or 2: "
-      game_mode = gets.chomp
-    end
-    game_mode
+  def lose
+    output @messages.out_of_turns_message
   end
 
+  def win
+    output @messages.winning_message_computer
+  end
+
+  def welcome
+    output @messages.welcome_message
+  end
+
+  def restart
+    exec('ruby lib/main.rb') if restart?
+  end
+
+private
+  def prompt_for_code
+    prompt(@messages.code_input_message)
+  end
+
+  def validate(guess)
+    guess.count == Rules::SECRET_LENGTH && 
+    guess.all? { |color_symbol| Rules::COLOR_OPTIONS.include? color_symbol }
+  end
+
+  def input_error(guess)
+    if guess.count != Rules::SECRET_LENGTH
+      output @messages.wrong_number_message(guess.count)
+    else
+      invalid_options = guess.reject { |option| Rules::COLOR_OPTIONS.include? option }
+      output @messages.invalid_color_error_message(invalid_options)
+    end
+  end
+
+  def prompt_for_game_mode
+    prompt(@messages.mode_input_message)
+  end
+
+  def restart?
+    loop do
+      user_input = prompt_for_restart
+      restart = user_input.downcase.to_sym
+      return true if restart == :yes
+      return false if restart == :no
+      output @messages.invalid_option_error_message
+    end
+  end
+
+  def prompt_for_restart
+    prompt(@messages.restart_message)
+  end
+
+end
+
+class MastermindIOHuman < MastermindIO
+  def win 
+    output @messages.winning_message_human
+  end
+
+  def display_instructions
+    output @messages.instructions_human
+  end
+end
+
+class MastermindIOComputer < MastermindIO
+
+  def display_instructions
+    output @messages.instructions_computer
+  end
+end
+
+class MastermindIOAuto < MastermindIO
+  def display_instructions
+    output @messages.instructions_auto
+  end
 end
