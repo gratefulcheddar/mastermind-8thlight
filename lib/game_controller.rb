@@ -1,41 +1,11 @@
-require_relative "../lib/mastermind"
-require_relative '../lib/mastermind_io'
+require_relative './game'
 
 class GameController
-
-  attr_reader :guess
-
-  def initialize(game: Mastermind.new, messages: MastermindDialog.new, io: MastermindIO.new)
-    @game = game
-    @guess = []
-    @messages = messages
-    @io = io
-  end
-
-  def play_game
-    @io.output @messages.instructions
-
-    (1..Mastermind::MAX_TURNS).each do |turn_number|
-
-      @guess = @io.get_guess(Mastermind::SECRET_LENGTH)
-
-      break if @guess == [:restart] || @guess == [:quit]
-
-      result = @game.get_result(@game.secret_code, @guess)
-      result[:turn] = turn_number
-      @game.add_to_board(result)
-      @io.output @game.board
-
-      if result[:black_pins] == Mastermind::SECRET_LENGTH
-        @io.output @messages.winning_message
-        break
-      end
-
-      if turn_number == Mastermind::MAX_TURNS
-        @io.output @messages.out_of_turns_message(@game.secret_code)
-        break
-      end
-
-    end
+  def self.launch_game
+    io = MastermindIO.new
+    io.welcome
+    game_mode = io.get_game_mode
+    Game.for(game_mode).play
+    io.restart
   end
 end
