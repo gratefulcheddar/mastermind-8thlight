@@ -82,12 +82,9 @@ class ComputerPlayer < Player
 
   def calculate_new_combinations
     previous_guess_pins = @board.last_pins
-    new_combinations = []
-    @possible_combinations.each do |combination|
-      if calculate_pin_feedback(combination, @board.last_guess) == previous_guess_pins
-        new_combinations << combination
-      end
+    new_combinations = @possible_combinations.map do |combination|
+      combination if calculate_pin_feedback(combination, @board.last_guess) == previous_guess_pins
     end
-    @possible_combinations = new_combinations
+    @possible_combinations = new_combinations.compact
   end
 end
