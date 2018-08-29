@@ -1,6 +1,5 @@
 class Turn
-  attr_accessor :feedback
-  attr_reader :guess
+  attr_reader :guess, :feedback
 
   def self.with(guess)
     Turn.new(guess)
@@ -9,6 +8,10 @@ class Turn
   def initialize(guess)
     @guess = guess
     @feedback = []
+  end
+
+  def add(feedback)
+    @feedback = feedback
   end
 
   def to_s
