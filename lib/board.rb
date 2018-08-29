@@ -18,7 +18,7 @@ class Board
   end
 
   def add_feedback(pins)
-    @turns.last.feedback = pins
+    last_turn.add(pins)
   end
 
   def won?
