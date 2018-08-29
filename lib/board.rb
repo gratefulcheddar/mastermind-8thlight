@@ -1,4 +1,4 @@
-require 'turn'
+require_relative './turn'
 
 class Board
   attr_reader :turns, :secret_code
