@@ -15,11 +15,11 @@ RSpec.describe "Board" do
   describe '#add_guess(guess)' do
     it 'adds a turn to the board with specified guess and no feedback' do
       code = %i[red red red red]
-      expect(game_board.turn_count).to eq 0
+      expect(game_board.turn_count).to be_zero
       game_board.add_guess(code)
       expect(game_board.turn_count).to eq 1
       expect(game_board.last_guess).to eq code
-      expect(game_board.last_pins).to eq []
+      expect(game_board.last_pins).to be_empty
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe "Board" do
       it 'adds the feedback pins to the last turn' do
         code = %i[red red red red]
         pins = [1,2]
-        expect(game_board.turn_count).to eq 0
+        expect(game_board.turn_count).to be_zero
         game_board.add_guess(code)
         game_board.add_feedback(pins)
         expect(game_board.turn_count).to eq 1
@@ -88,7 +88,7 @@ RSpec.describe "Board" do
     context 'when the last turn has no feedback' do
       it "returns nothing" do
         game_board.add_guess(%i[red red red red])
-        expect(game_board.last_pins).to eq []
+        expect(game_board.last_pins).to be_empty
       end
     end
   end
