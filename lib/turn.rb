@@ -5,16 +5,17 @@ class Turn
     Turn.new(guess)
   end
 
-  def initialize(guess)
-    @guess = guess
-    @feedback = []
-  end
-
-  def add(feedback)
-    @feedback = feedback
+  def add(pins)
+    @feedback = pins
   end
 
   def to_s
     "Black Pins: #{@feedback[0]} | White Pins: #{@feedback[1]} | Guess: #{@guess}\n"
+  end
+  
+private
+  def initialize(guess)
+    @guess = guess
+    @feedback = []
   end
 end
