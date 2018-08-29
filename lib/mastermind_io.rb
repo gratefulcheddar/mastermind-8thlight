@@ -121,7 +121,7 @@ end
 
 class MastermindIOHuman < MastermindIO
   def win 
-    output @messages.winning_message_human
+    output @messages.winning_message
   end
 
   def display_instructions
